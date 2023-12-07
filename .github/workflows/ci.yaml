@@ -3,7 +3,7 @@ on: push
 env:
   DB_NAME: test
   DB_USER: root
-  DB_PASSWORD: ""
+  DB_PASSWORD: password
 jobs:
   run_code_checks:
     runs-on: ubuntu-latest
@@ -11,7 +11,9 @@ jobs:
       - name: Setup MySQL
         run: |
           sudo /etc/init.d/mysql start
-          sudo mysql -e 'CREATE DATABASE ${{env.DB_NAME}} -u${{env.DB_USER}} -p${{env.DB_PASSWORD}}'
+          apt-get install -y mysql-client
+          mysql --host mydb -uroot -ppassword -e "SHOW DATABASES"
+          sudo mysql -e 'CREATE DATABASE ${{env.DB_NAME}} -u${{env.DB_USER}} -p${{env.DB_PASSWORD}};' -uroot -proot
       - name: Checkout Repo Clone
         uses: actions/checkout@v2
       - name: Setup Go
