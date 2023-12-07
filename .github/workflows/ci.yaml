@@ -20,4 +20,4 @@ jobs:
         run: |
           sudo apt-get install -y mysql-client
           mysql --host 127.0.0.1 --port 32574 -uroot -ppassword -e "SHOW DATABASES"
-          CREATE DATABASE test -uroot -ppassword;
+          sudo mysql -e 'CREATE DATABASE test -uroot -ppassword';
