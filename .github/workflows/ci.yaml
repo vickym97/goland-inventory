@@ -11,8 +11,8 @@ jobs:
       - name: Setup MySQL
         run: |
           sudo /etc/init.d/mysql start
-          apt-get install -y mysql-client
-          mysql --host mydb -uroot -ppassword -e "SHOW DATABASES"
+          sudo apt-get install -y mysql-client
+          sudo mysql -e 'mysql --host mydb -uroot -ppassword -e "SHOW DATABASES"'
           sudo mysql -e 'CREATE DATABASE ${{env.DB_NAME}} -u${{env.DB_USER}} -p${{env.DB_PASSWORD}};' -uroot -proot
       - name: Checkout Repo Clone
         uses: actions/checkout@v2
